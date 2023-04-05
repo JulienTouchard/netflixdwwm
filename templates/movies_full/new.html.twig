@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New MoviesFull{% endblock %}
+
+{% block body %}
+    <h1>Create new MoviesFull</h1>
+
+    {{ include('movies_full/_form.html.twig') }}
+
+    <a href="{{ path('app_movies_full_index') }}">back to list</a>
+{% endblock %}

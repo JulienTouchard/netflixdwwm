@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}MoviesFull index{% endblock %}
+
+{% block body %}
+    <h1>MoviesFull index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Year</th>
+                <th>Genres</th>
+                <th>Plot</th>
+                <th>Directors</th>
+                <th>Cast</th>
+                <th>Writers</th>
+                <th>Runtime</th>
+                <th>Modified</th>
+                <th>Created</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for movies_full in movies_fulls %}
+            <tr>
+                <td>{{ movies_full.id }}</td>
+                <td>{{ movies_full.title }}</td>
+                <td>{{ movies_full.year }}</td>
+                <td>{{ movies_full.genres }}</td>
+                <td>{{ movies_full.plot }}</td>
+                <td>{{ movies_full.directors }}</td>
+                <td>{{ movies_full.cast }}</td>
+                <td>{{ movies_full.writers }}</td>
+                <td>{{ movies_full.runtime }}</td>
+                <td>{{ movies_full.modified ? movies_full.modified|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ movies_full.created ? movies_full.created|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('app_movies_full_show', {'id': movies_full.id}) }}">show</a>
+                    <a href="{{ path('app_movies_full_edit', {'id': movies_full.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="12">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_movies_full_new') }}">Create new</a>
+{% endblock %}

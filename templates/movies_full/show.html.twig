@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}MoviesFull{% endblock %}
+
+{% block body %}
+    <h1>MoviesFull</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ movies_full.id }}</td>
+            </tr>
+            <tr>
+                <th>Title</th>
+                <td>{{ movies_full.title }}</td>
+            </tr>
+            <tr>
+                <th>Year</th>
+                <td>{{ movies_full.year }}</td>
+            </tr>
+            <tr>
+                <th>Genres</th>
+                <td>{{ movies_full.genres }}</td>
+            </tr>
+            <tr>
+                <th>Plot</th>
+                <td>{{ movies_full.plot }}</td>
+            </tr>
+            <tr>
+                <th>Directors</th>
+                <td>{{ movies_full.directors }}</td>
+            </tr>
+            <tr>
+                <th>Cast</th>
+                <td>{{ movies_full.cast }}</td>
+            </tr>
+            <tr>
+                <th>Writers</th>
+                <td>{{ movies_full.writers }}</td>
+            </tr>
+            <tr>
+                <th>Runtime</th>
+                <td>{{ movies_full.runtime }}</td>
+            </tr>
+            <tr>
+                <th>Modified</th>
+                <td>{{ movies_full.modified ? movies_full.modified|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Created</th>
+                <td>{{ movies_full.created ? movies_full.created|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_movies_full_index') }}">back to list</a>
+
+    <a href="{{ path('app_movies_full_edit', {'id': movies_full.id}) }}">edit</a>
+
+    {{ include('movies_full/_delete_form.html.twig') }}
+{% endblock %}

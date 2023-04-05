@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit MoviesFull{% endblock %}
+
+{% block body %}
+    <h1>Edit MoviesFull</h1>
+
+    {{ include('movies_full/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_movies_full_index') }}">back to list</a>
+
+    {{ include('movies_full/_delete_form.html.twig') }}
+{% endblock %}

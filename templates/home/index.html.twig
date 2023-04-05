@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello HomeController!{% endblock %}
+
+{% block body %}
+
+
+<div class="example-wrapper">
+    <h1>Hello {{ controller_name }}! ✅</h1>
+    {% for film2011 in films2011 %}
+    
+    <div>
+        {{ film2011.title }}
+        <br>
+        <img src="{{ asset('assets/img/posters/'~ film2011.id) }}.jpg" alt="{{ film2011.title }}">
+    </div>
+    
+    {% else %}
+
+    no records found
+
+    {% endfor %}
+
+</div>
+{% endblock %}
