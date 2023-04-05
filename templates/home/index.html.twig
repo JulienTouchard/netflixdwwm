@@ -3,28 +3,56 @@
 {% block title %}Hello HomeController!{% endblock %}
 
 {% block body %}
+<link rel="stylesheet" href="{{ asset('assets/css/home.css') }}">
+<script src="{{ asset('assets/js/home.js') }}" defer></script>
 
-
-<div class="example-wrapper">
+<div class="example-wrapper" data-jsFilmFantasy = {{ jsFilmFantasy }}>
     <h1>Hello {{ controller_name }}! ✅</h1>
-    {% for film in  filmsGenresAction %}
-    
-    <div>
-        {{ film.title }}
-        <br>
-        {% set url = asset('assets/img/posters/'~ film.id ~ '.jpg') %}
-        {% if url isnot empty %}
-        <img src="{{ asset('assets/img/posters/'~ film.id) }}.jpg" alt="{{ film.title }}">
+    <h2>Les meilleurs films d'action</h2>
+    <div class="filmContainer">
+        {% for film in filmsGenresAction %}
+        <a href="{{ path('app_film', {'id': film.id})}}"> 
+            <div class="film">
+                <div class="filmTitle">
+                    {{ film.title }}{{film.id}}
+                </div>
+
+                <div class="film img">
+                    <img src="{{ asset(film.urlImg) }}" alt="{{ film.title }}">
+                </div>
+                <div>
+                    {{film.genres}}
+                </div>
+
+
+            </div>
+        </a>
         {% else %}
-        <img src="{{ asset('assets/img/posters/default.jpg') }}" alt="{{ film.title }}">
-        {% endif %}
+        no records found
+        {% endfor %}
     </div>
-    
-    {% else %}
+    <h2>Les meilleurs films Fantasy</h2>
+    <div class="filmContainer">
+        {% for film in filmsGenresFantasy %}
+        <a href="">
+            <div class="film">
+                <div class="filmTitle">
+                    {{ film.title }}{{film.id}}
+                </div>
 
-    no records found
+                <div class="film img">
+                    <img src="{{ asset(film.urlImg) }}" alt="{{ film.title }}">
+                </div>
+                <div>
+                    {{film.genres}}
+                </div>
 
-    {% endfor %}
 
+            </div>
+        </a>
+        {% else %}
+        no records found
+        {% endfor %}
+    </div>
 </div>
 {% endblock %}

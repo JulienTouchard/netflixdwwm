@@ -14,7 +14,7 @@ class HomeController extends AbstractController
     {
         $posterDirectory = str_replace("\\","/",$this->getParameter('assets'))."/img/posters/";
         
-        function randFilms($genre, $nb, $moviesFullRepository,$posterDirectory)
+        function randFilms($genre, $nb, $moviesFullRepository, $posterDirectory)
         {
             $films = $moviesFullRepository->findByGenres($genre);
             $min = 0;
@@ -23,17 +23,15 @@ class HomeController extends AbstractController
             $arrayReturn = [];
             $i = 0;
             while ($i < $nb) {
-                if (!in_array(rand($min, $max), $arrayFilm)) {
-                    array_push($arrayFilm, rand($min, $max));
-
-                    array_push($arrayReturn, $films[rand($min, $max)]);
-                    //dd($arrayReturn[count($arrayReturn)-1]->id);
-                    $id = $films[rand($min, $max)]->getId();
-                   
+                $rnd = rand($min, $max);
+                if (!in_array($rnd, $arrayFilm)) {
+                    array_push($arrayFilm, $rnd);
+                    array_push($arrayReturn, $films[$rnd]);
+                    $id = $films[$rnd]->getId();
                     if(file_exists($posterDirectory.$id.".jpg")){
-                        //$arrayReturn[$i]
+                        $arrayReturn[$i]->urlImg = "/assets/img/posters/$id.jpg";
                     } else {
-                        
+                        $arrayReturn[$i]->urlImg = "/assets/img/posters/default.jpg";
                     }
                 } else {
                     $i--;
@@ -42,15 +40,17 @@ class HomeController extends AbstractController
             }
             return $arrayReturn;
         }
-        
-        randFilms('action', 10, $moviesFullRepository,$posterDirectory);
-        
+        //dd(randFilms('action', 10, $moviesFullRepository,$posterDirectory));
+        $jsFilmFantasy = json_encode(randFilms('fantasy', 10, $moviesFullRepository,$posterDirectory));
         
         //$films2011 = $moviesFullRepository->findBy(["year"=>2011]);
         //dd($filmsByGenre);
         return $this->render('home/index.html.twig', [
             'controller_name' => 'HomeController',
             'filmsGenresAction' => randFilms('action', 10, $moviesFullRepository,$posterDirectory),
+            'filmsGenresFantasy' => randFilms('fantasy', 10, $moviesFullRepository,$posterDirectory),
+            'jsFilmFantasy' => $jsFilmFantasy,
+
         ]);
     }
 }
