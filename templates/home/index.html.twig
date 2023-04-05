@@ -7,12 +7,17 @@
 
 <div class="example-wrapper">
     <h1>Hello {{ controller_name }}! ✅</h1>
-    {% for film2011 in films2011 %}
+    {% for film in  filmsGenresAction %}
     
     <div>
-        {{ film2011.title }}
+        {{ film.title }}
         <br>
-        <img src="{{ asset('assets/img/posters/'~ film2011.id) }}.jpg" alt="{{ film2011.title }}">
+        {% set url = asset('assets/img/posters/'~ film.id ~ '.jpg') %}
+        {% if url isnot empty %}
+        <img src="{{ asset('assets/img/posters/'~ film.id) }}.jpg" alt="{{ film.title }}">
+        {% else %}
+        <img src="{{ asset('assets/img/posters/default.jpg') }}" alt="{{ film.title }}">
+        {% endif %}
     </div>
     
     {% else %}
