@@ -54,5 +54,28 @@
         no records found
         {% endfor %}
     </div>
+    <h2>Les meilleurs films Horror</h2>
+    <div class="filmContainer">
+        {% for film in filmsGenresHorror %}
+        <a href="">
+            <div class="film">
+                <div class="filmTitle">
+                    {{ film.title }}{{film.id}}
+                </div>
+
+                <div class="film img">
+                    <img src="{{ asset(film.urlImg) }}" alt="{{ film.title }}">
+                </div>
+                <div>
+                    {{film.genres}}
+                </div>
+
+
+            </div>
+        </a>
+        {% else %}
+        no records found
+        {% endfor %}
+    </div>
 </div>
 {% endblock %}

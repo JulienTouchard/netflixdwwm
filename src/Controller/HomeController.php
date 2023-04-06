@@ -46,9 +46,10 @@ class HomeController extends AbstractController
         //$films2011 = $moviesFullRepository->findBy(["year"=>2011]);
         //dd($filmsByGenre);
         return $this->render('home/index.html.twig', [
-            'controller_name' => 'HomeController',
+            'controller_name' => 'Netlix',
             'filmsGenresAction' => randFilms('action', 10, $moviesFullRepository,$posterDirectory),
             'filmsGenresFantasy' => randFilms('fantasy', 10, $moviesFullRepository,$posterDirectory),
+            'filmsGenresHorror' => randFilms('horror', 10, $moviesFullRepository,$posterDirectory),
             'jsFilmFantasy' => $jsFilmFantasy,
 
         ]);
