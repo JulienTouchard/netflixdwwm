@@ -84,4 +84,12 @@ class MoviesFullRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    public function findGenres()
+    {
+        return $this->createQueryBuilder('m')
+            ->select('DISTINCT m.genres')
+            ->getQuery()
+            ->getResult();
+    }
 }

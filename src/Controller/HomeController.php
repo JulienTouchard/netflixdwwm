@@ -6,11 +6,12 @@ use App\Repository\MoviesFullRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Security;
 
 class HomeController extends AbstractController
 {
     #[Route('/ ', name: 'app_home')]
-    public function index(MoviesFullRepository $moviesFullRepository): Response
+    public function index(MoviesFullRepository $moviesFullRepository, Security $security): Response
     {
         $posterDirectory = str_replace("\\","/",$this->getParameter('assets'))."/img/posters/";
         
@@ -45,12 +46,21 @@ class HomeController extends AbstractController
         
         //$films2011 = $moviesFullRepository->findBy(["year"=>2011]);
         //dd($filmsByGenre);
+        if ($this->isGranted('ROLE_USER')) {
+            
+            $user = $security->getUser();
+            $genre = $user->getGenre();
+
+         } else {
+            $genre = 'action';
+         }
         return $this->render('home/index.html.twig', [
             'controller_name' => 'Netlix',
-            'filmsGenresAction' => randFilms('action', 10, $moviesFullRepository,$posterDirectory),
-            'filmsGenresFantasy' => randFilms('fantasy', 10, $moviesFullRepository,$posterDirectory),
+            'filmsGenresAction' => randFilms($genre, 10, $moviesFullRepository,$posterDirectory),
+            'filmsGenresFantasy' => randFilms('Fantasy', 10, $moviesFullRepository,$posterDirectory),
             'filmsGenresHorror' => randFilms('horror', 10, $moviesFullRepository,$posterDirectory),
             'jsFilmFantasy' => $jsFilmFantasy,
+            'titreGenre'=>$genre
 
         ]);
     }
